@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "lint:prettier": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -18,5 +19,8 @@
     "fs": "0.0.1-security",
     "request": "^2.88.2",
     "rosu-pp-js": "^1.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5"
   }
 }

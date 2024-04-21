@@ -11,8 +11,8 @@ export const calDiffAcc = (maxAttrs) => {
       acc: item,
       pp: new rosu.Performance({
         accuracy: item,
-        hitresultPriority: rosu.HitResultPriority.BestCase
-      }).calculate(maxAttrs).pp // Re-using previous attributes to speed up the calculation.
+        hitresultPriority: rosu.HitResultPriority.BestCase,
+      }).calculate(maxAttrs).pp, // Re-using previous attributes to speed up the calculation.
     }
   })
   return accPPlist

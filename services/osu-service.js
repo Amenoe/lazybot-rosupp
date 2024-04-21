@@ -41,7 +41,7 @@ export const ppCalcHandle = async (req, res, next) => {
       n50,
       combo,
       misses,
-      accuracy: accuracy * 100
+      accuracy: accuracy * 100,
     }
     const flag = await beatmapDownLoad(beatmapId)
     console.log(flag)
@@ -61,18 +61,18 @@ export const ppCalcHandle = async (req, res, next) => {
     const fcAttrs = new rosu.Performance({
       n100: ppConfig.n100,
       n50: ppConfig.n50,
-      hitresultPriority: rosu.HitResultPriority.BestCase
+      hitresultPriority: rosu.HitResultPriority.BestCase,
     }).calculate(maxAttrs)
 
     const detailAttrs = new rosu.Performance({
       ...ppConfig,
-      hitresultPriority: rosu.HitResultPriority.BestCase
+      hitresultPriority: rosu.HitResultPriority.BestCase,
     }).calculate(maxAttrs)
     // console.log(`PP: ${currAttrs.pp}/${maxAttrs.pp}/${currAttrs.ppAim}| Stars: ${maxAttrs.difficulty.stars}`)
     res.json({
       accPPlist,
       iffc: fcAttrs.pp,
-      detailAttrs
+      detailAttrs,
     })
   } catch (error) {
     return next(error)

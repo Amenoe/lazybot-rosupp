@@ -10,5 +10,5 @@ export const Mods = {
   RX: 128,
   HT: 256,
   NC: 512, // Only set along with DoubleTime. i.e: NC only gives 576
-  FL: 1024
+  FL: 1024,
 }

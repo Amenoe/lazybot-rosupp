@@ -2,7 +2,7 @@ import axios from 'axios'
 const request = axios.create({
   baseUrl: 'https://osu.ppy.sh',
   timeout: 10000,
-  withCredentials: false // 跨域请求是否携带cookie
+  withCredentials: false, // 跨域请求是否携带cookie
 })
 
 // 创建请求拦截
@@ -12,7 +12,7 @@ request.interceptors.request.use(
   },
   (error) => {
     Promise.reject(error)
-  }
+  },
 )
 
 request.interceptors.response.use(
@@ -22,7 +22,7 @@ request.interceptors.response.use(
   },
   (error) => {
     Promise.reject(error)
-  }
+  },
 )
 
 // export default {
