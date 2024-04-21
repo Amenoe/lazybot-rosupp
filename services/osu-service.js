@@ -5,6 +5,7 @@ import * as fs from 'fs'
 
 import { Mods } from '../utils/osu-mod-map.js'
 import { calDiffAcc } from '../utils/pp-with-acc.js'
+import { getDiffColor } from '../utils/difficulty-color-spectrum.js'
 
 /**
  * 计算不同acc的pp值
@@ -55,6 +56,7 @@ export const ppCalcHandle = async (req, res, next) => {
     // map.convert(rosu.GameMode.Osu)
 
     const maxAttrs = new rosu.Performance({ mods: ppConfig.mods }).calculate(map)
+    // 计算不同acc的pp值
     const accPPlist = calDiffAcc(maxAttrs)
 
     // 计算iffc，猫直接用acc算，雨沫用50和100算
@@ -64,14 +66,18 @@ export const ppCalcHandle = async (req, res, next) => {
       hitresultPriority: rosu.HitResultPriority.BestCase,
     }).calculate(maxAttrs)
 
+    // 计算该成绩的详情
     const detailAttrs = new rosu.Performance({
       ...ppConfig,
       hitresultPriority: rosu.HitResultPriority.BestCase,
     }).calculate(maxAttrs)
+
+    const diffColor = getDiffColor(detailAttrs.difficulty.stars)
     // console.log(`PP: ${currAttrs.pp}/${maxAttrs.pp}/${currAttrs.ppAim}| Stars: ${maxAttrs.difficulty.stars}`)
     res.json({
-      accPPlist,
       iffc: fcAttrs.pp,
+      diffColor,
+      accPPlist,
       detailAttrs,
     })
   } catch (error) {
