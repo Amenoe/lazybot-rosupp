@@ -1,3 +1,7 @@
+/**
+ * 定期删除public/osu_map下的文件
+ */
+
 import fs from 'fs'
 import path from 'path'
 export const clearFile = (url) => {
