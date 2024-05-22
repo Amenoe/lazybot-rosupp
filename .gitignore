@@ -35,4 +35,6 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # custom
-/public
+public/osu_map/*
+!.gitkeep
+
