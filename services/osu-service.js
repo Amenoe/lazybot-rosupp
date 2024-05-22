@@ -54,13 +54,14 @@ export const ppCalcHandle = async (req, res, next) => {
 
     // 可以选择将beatmap转换为特定模式。
     // map.convert(rosu.GameMode.Osu)
-
     const maxAttrs = new rosu.Performance({ mods: ppConfig.mods }).calculate(map)
+    console.log(maxAttrs)
     // 计算不同acc的pp值
-    const accPPlist = calDiffAcc(maxAttrs)
+    const accPPlist = calDiffAcc(maxAttrs, ppConfig.mods)
 
     // 计算iffc，猫直接用acc算，雨沫用50和100算
     const fcAttrs = new rosu.Performance({
+      mods: ppConfig.mods,
       n100: ppConfig.n100,
       n50: ppConfig.n50,
       hitresultPriority: rosu.HitResultPriority.BestCase,
