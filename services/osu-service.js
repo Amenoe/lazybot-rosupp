@@ -19,6 +19,7 @@ export const ppCalcHandle = async (req, res, next) => {
   try {
     if (Object.keys(req.body).length === 0) throw '不接受该格式的请求'
     const { beatmapId, mods, n300, n100, n50, combo, misses, accuracy } = req.body
+    console.log(new Date().toLocaleString())
     console.info(req.body)
     let sumMods = 0
     if (Array.isArray(mods)) {

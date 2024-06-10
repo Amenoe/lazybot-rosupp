@@ -17,15 +17,16 @@ export const beatmapDownLoad = (beatmapId) => {
   return new Promise((resolve, reject) => {
     // 检查文件是否存在于当前目录中。
     if (!fs.existsSync(path.join(dirPath, fileName))) {
-      let stream = fs.createWriteStream(path.join(dirPath, fileName))
-      request(beatmapUrl)
-        .pipe(stream)
-        .on('close', function (res) {
-          resolve(`文件${fileName}下载完成`)
-        })
-        .on('error', function (err) {
-          reject(err)
-        })
+      let writeStream = fs.createWriteStream(path.join(dirPath, fileName))
+      const readStream = request(beatmapUrl)
+      readStream.pipe(writeStream)
+      readStream.on('end', function (res) {
+        resolve(`文件${fileName}下载完成`)
+        console.log(res)
+      })
+      readStream.on('error', function (err) {
+        reject(err)
+      })
     } else {
       resolve(`文件${fileName}已存在`)
     }
