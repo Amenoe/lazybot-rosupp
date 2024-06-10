@@ -19,11 +19,11 @@ export const ppCalcHandle = async (req, res, next) => {
   try {
     if (Object.keys(req.body).length === 0) throw '不接受该格式的请求'
     const { beatmapId, mods, n300, n100, n50, combo, misses, accuracy } = req.body
+    console.info(req.body)
     let sumMods = 0
     if (Array.isArray(mods)) {
       mods.forEach((element) => {
         element = element.toUpperCase()
-        console.log(element)
         if (Object.hasOwnProperty.call(Mods, element)) {
           sumMods += Mods[element]
         } else {
@@ -45,7 +45,7 @@ export const ppCalcHandle = async (req, res, next) => {
       accuracy: accuracy * 100,
     }
     const flag = await beatmapDownLoad(beatmapId)
-    console.log(flag)
+    console.info(flag)
     // 读取文件
     const bytes = fs.readFileSync(path.join(path.resolve(), 'public/osu_map', beatmapId + '.osu'))
 
@@ -55,7 +55,6 @@ export const ppCalcHandle = async (req, res, next) => {
     // 可以选择将beatmap转换为特定模式。
     // map.convert(rosu.GameMode.Osu)
     const maxAttrs = new rosu.Performance({ mods: ppConfig.mods }).calculate(map)
-    console.log(maxAttrs)
     // 计算不同acc的pp值
     const accPPlist = calDiffAcc(maxAttrs, ppConfig.mods)
 
@@ -81,6 +80,7 @@ export const ppCalcHandle = async (req, res, next) => {
       accPPlist,
       detailAttrs,
     })
+    console.info('该成绩pp校准', detailAttrs.pp)
   } catch (error) {
     return next(error)
   }

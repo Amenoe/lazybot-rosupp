@@ -20,14 +20,14 @@ export const beatmapDownLoad = (beatmapId) => {
       let stream = fs.createWriteStream(path.join(dirPath, fileName))
       request(beatmapUrl)
         .pipe(stream)
-        .on('close', function (err) {
-          resolve('文件' + fileName + '下载完成')
+        .on('close', function (res) {
+          resolve(`文件${fileName}下载完成`)
         })
         .on('error', function (err) {
           reject(err)
         })
     } else {
-      resolve('文件已存在')
+      resolve(`文件${fileName}已存在`)
     }
   })
 }
